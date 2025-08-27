@@ -23,6 +23,32 @@
 #define COLOR_BLUE "\033[0;34m"
 #define COLOR_RESET "\033[0m"
 
+#define SMLOG_MAU8_D_RNG(MSG, BUF, LEN)                         \
+    printf(COLOR_GREEN);                                        \
+    for (size_t bufIndex = 4; bufIndex < (LEN-2); bufIndex++) { \
+        printf("%02x ", BUF[bufIndex]);                         \
+    }                                                           \
+    printf(COLOR_RESET);                                        \
+    printf("\n")
+
+
+
+// Alternative version that opens/closes file automatically
+#define SMLOG_MAU8_D_RNG_AUTO(MSG, BUF, LEN, FILENAME)         \
+    do {                                                        \
+        FILE *log_file = fopen(FILENAME, "a");                 \
+        if (log_file != NULL) {                                 \
+            for (size_t bufIndex = 4; bufIndex < (LEN-2); bufIndex++) { \
+                fprintf(log_file, "%02x", BUF[bufIndex]);     \
+            }                                                   \
+            fprintf(log_file, "\n");                           \
+            fclose(log_file);                                   \
+        }                                                       \
+    } while(0)
+
+//#define SMLOG_MAU8_D_RNG(MSG, BUF, LEN)
+
+
 #define SMLOG_I(...)     \
     printf(COLOR_BLUE);  \
     printf(__VA_ARGS__); \
@@ -59,6 +85,7 @@
     printf(COLOR_RESET);                                    \
     printf("\n")
 #else
+
 #define SMLOG_D(...)
 #define SMLOG_AU8_D(BUF, LEN)
 #define SMLOG_MAU8_D(MSG, BUF, LEN)

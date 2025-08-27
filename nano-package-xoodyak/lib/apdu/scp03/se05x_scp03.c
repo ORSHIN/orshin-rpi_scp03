@@ -964,7 +964,9 @@ smStatus_t Se05x_API_SCP03_TransmitData(pSe05xSession_t session_ctx,
 
 	*pRspBufLen = actualRespLen;
 
-        SMLOG_MAU8_D("Decrypted Data ==>", rspBuf, *pRspBufLen);
+        //SMLOG_MAU8_D("Decrypted Data ==>", rspBuf, *pRspBufLen);
+        //SMLOG_MAU8_D_RNG("Decrypted Data ==>", rspBuf, *pRspBufLen);
+        SMLOG_MAU8_D_RNG_AUTO("", rspBuf, *pRspBufLen, "corev_random.txt");
     }
 
     return apduStatus;

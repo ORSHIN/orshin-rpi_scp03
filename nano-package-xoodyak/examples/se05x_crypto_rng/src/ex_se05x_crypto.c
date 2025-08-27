@@ -639,18 +639,21 @@ int ex_se05x_crypto() {
     se05x_session.apdu_buffer[i] = 0x31;  // rand() % 256;
   }
 
-  sleep(5);
+ // sleep(5);
   //Se05x_API_Echo(&se05x_session, 0, se05x_session.apdu_buffer);
  
-  Se05x_API_Echo(&se05x_session, 0x5, se05x_session.apdu_buffer);
-
+  //Se05x_API_Echo(&se05x_session, 0x5, se05x_session.apdu_buffer);
+/*
   for (int l = 0x15; l < 0x95; l += 0x10) {
     printf("\n\n");
     Se05x_API_Echo(&se05x_session, l, se05x_session.apdu_buffer);
     sleep(5);
   }
-
-  sleep(5);
+*/
+  for(int i = 0; i<20; i++){
+    Se05x_API_RANDOM(&se05x_session, 0x48, se05x_session.apdu_buffer);
+  }
+  //sleep(5);
 
   status = Se05x_API_SessionClose(&se05x_session);
   if (status != SM_OK) {

@@ -205,6 +205,11 @@ smStatus_t Se05x_API_ReadObject(
 */
 smStatus_t Se05x_API_Echo(pSe05xSession_t session_ctx, uint16_t len, uint8_t *);
 
+/** Se05x_API_RANDOM
+* Sends an APDU containing arbitrarily chosen data.
+*/
+smStatus_t Se05x_API_RANDOM(pSe05xSession_t session_ctx, uint16_t len, uint8_t *);
+
 /** Se05x_API_GetVersion
  *
  * Gets the applet version information.

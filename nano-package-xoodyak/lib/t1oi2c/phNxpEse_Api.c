@@ -176,6 +176,8 @@ ESESTATUS phNxpEse_Transceive(void *conn_ctx, phNxpEse_data *pCmd,
   gRsp.p_data = pRsp->p_data;
   gRsp.len = pRsp->len;
 
+
+
   if ((pCmd->len == 0) || pCmd->p_data == NULL) {
     T_SMLOG_E(" phNxpEse_Transceive - Invalid Parameter no data");
     return ESESTATUS_INVALID_PARAMETER;
@@ -188,6 +190,7 @@ ESESTATUS phNxpEse_Transceive(void *conn_ctx, phNxpEse_data *pCmd,
   } else {
     nxpese_ctxt->EseLibStatus = ESE_STATUS_BUSY;
     bStatus = phNxpEseProto7816_Transceive((void *)nxpese_ctxt, pCmd, pRsp);
+
     if (TRUE == bStatus) {
       status = ESESTATUS_SUCCESS;
     } else {

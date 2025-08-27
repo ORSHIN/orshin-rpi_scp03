@@ -284,6 +284,40 @@ cleanup:
   return retStatus;
 }
 
+smStatus_t Se05x_API_RANDOM(pSe05xSession_t session_ctx, uint16_t len,
+                          uint8_t *pCmdbuf) {
+  smStatus_t retStatus = SM_NOT_OK;
+  tlvHeader_t hdr = {{kSE05x_CLA, 0x06, kSE05x_P1_DEFAULT, kSE05x_P2_DEFAULT}};
+  uint8_t *pRspbuf = NULL;
+  size_t rspbufLen = 0;
+
+  ENSURE_OR_GO_CLEANUP(session_ctx != NULL);
+
+  // pCmdbuf = &session_ctx->apdu_buffer[0];
+  pRspbuf = &session_ctx->apdu_buffer[0];
+  rspbufLen = sizeof(session_ctx->apdu_buffer);
+
+  SMLOG_D("APDU - RANDOM \n");
+
+  retStatus =
+      DoAPDUTxRx(session_ctx, &hdr, pCmdbuf, len, pRspbuf, &rspbufLen, 0);
+
+  if (retStatus == SM_OK) {
+    for (uint16_t i = 0; i < len; i++) {
+      if (pRspbuf[i] != pCmdbuf[i]) {
+        retStatus = SM_NOT_OK;
+        SMLOG_I("Error: incorrect response!\n");
+        break;
+      }
+    }
+  } else {
+    SMLOG_I("Error: incorrect response!\n");
+  }
+
+cleanup:
+  return retStatus;
+}
+
 smStatus_t Se05x_API_GetVersion(pSe05xSession_t session_ctx,
                                 uint8_t *pappletVersion,
                                 size_t *appletVersionLen) {

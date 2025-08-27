@@ -82,7 +82,7 @@ static void Cyclist_Up(Cyclist_Instance *instance, uint8_t *Yi, unsigned int YiL
         SnP_ExtractAndAddBytes( instance->state, s, s, 0, Cyclist_f_bPrime );
     }
     #endif
-    SnP_Permute( instance->state );
+    SnP_Permute((uint32_t *) instance->state );
     #if defined(OUTPUT)
     if (instance->file != NULL) {
         memcpy( instance->stateShadow, instance->state, sizeof(instance->state) );

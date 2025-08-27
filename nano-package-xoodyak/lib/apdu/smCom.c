@@ -98,7 +98,6 @@ smStatus_t smComT1oI2C_TransceiveRaw(void *conn_ctx, uint8_t *pTx, size_t txLen,
     ENSURE_OR_RETURN_ON_ERROR((pRxLen != NULL), SM_NOT_OK);
 
     SMLOG_MAU8_D("APDU Tx>", pTx, txLen);
-
     SM_MUTEX_LOCK(g_sm_mutex);
     status = phNxpEse_Transceive(conn_ctx, &pCmdTrans, &pRspTrans);
     SM_MUTEX_UNLOCK(g_sm_mutex);
